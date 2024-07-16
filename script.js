@@ -34,14 +34,14 @@
 // function getdata(dataid){
 //     console.log('Data '+ dataid);  // This is small data let's suppose we have burden of data and it takes time to fetch data in case we use asynchronous function
 // }
-function getdata(dataid, getNextdata) {
-    setTimeout(() => {
-        console.log('data', dataid);
-        if (getNextdata) {
-            getNextdata();
-        }
-    }, 2000);
-}
+// function getdata(dataid, getNextdata) {
+//     setTimeout(() => {
+//         console.log('data', dataid);
+//         if (getNextdata) {
+//             getNextdata();
+//         }
+//     }, 2000);
+// }
 // getdata(1);
 // getdata(2);
 // getdata(3);  // Now al this will print in one time  but i want delay in each funtion so here we will use callback
@@ -76,23 +76,110 @@ function getdata(dataid, getNextdata) {
 // })
 // Primise has three states Resolve,Pending and Reject
 
-let getpromise = () => {
-    return new Promise((resolve, reject) => {
-        console.log('I am getpromise');
-        //  resolve('124'); // We get fullfilled value wiht resolve 
-        reject('order rejected');//We will get this value with not then we have to use catch 
-    })
-}
+// let getpromise = () => {
+//     return new Promise((resolve, reject) => {
+//         console.log('I am getpromise');
+//         //  resolve('124'); // We get fullfilled value wiht resolve 
+//         reject('order rejected');//We will get this value with not then we have to use catch 
+//     })
+// }
 
-let promise = getpromise();
-promise.then(() => {
-    console.log('Succesfully Resloved'); // here with then we will get the result of resolve fullfilled we get but not reject
-});
+// let promise = getpromise();
+// promise.then(() => {
+//     console.log('Succesfully Resloved'); // here with then we will get the result of resolve fullfilled we get but not reject
+// });
 
 // promise.then((resolve)=>{...})
 // promise.catch((rejected)=>{...})
 
-promise.catch(() => {
-    console.log('Order rejected');
-})
+// promise.catch(() => {
+//     console.log('Order rejected');
+// })
 
+
+// function asynch1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             console.log('data-1');
+//             resolve('Succes');
+//         }, 4000)
+//     })
+// }
+// function asynch2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             console.log('data-1');
+//             reject('Rejected');
+//         }, 4000)
+//     })
+// }
+
+// let test1 = asynch1();
+// test1.then((res) => {
+//     console.log(res);
+// })
+
+// let test2 = asynch2();
+// test2.then((reject) => {
+//     console.log(reject);
+// })
+
+
+function getdata(dataid) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('data', dataid);
+            resolve('Success');
+        }, 1000)
+    })
+}
+/// Now This is called Promises chain one by one data will be executed
+
+// getdata(1).then((res) => {
+//     return getdata(2);
+// }).then((res) => {
+//     return getdata(3)
+// }).then((res) => {
+//     return getdata(4)
+// }).then((res) => {
+//     console.log(res);
+// });// let's make it easier with asyn await
+
+async function getalldata() {
+    await getdata(1); // 1st Call
+    await getdata(2); // 2nd Call
+}
+
+// This is nestes callback hell functions
+// getdata(1, () => {
+//     getdata(2, () => {
+//         getdata(3, () => {
+//             getdata(4) // This is how we can use nested call back function but using nested function becomes call back hell
+//         })
+//     })
+// });         
+
+
+// we learned callback function callabck hell fcuntion nested promises chain promises 
+// Now async await is better than all these shit
+
+// Async Function will make it more easier
+
+// this is will return promise automatically
+
+
+
+function api() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Weather Data');
+            resolve(200); // 200 represent success of api
+        }, 2000);
+    })
+}
+
+async function getweatherdata() {
+    await api();// 1st call
+    await api();//2nd call
+}
+// just look how simple we made it
