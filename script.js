@@ -48,11 +48,51 @@ function getdata(dataid, getNextdata) {
 
 // getdata(1, getdata(2)); // getdata(2) will print at first because here we are using parenthieses
 
-getdata(1, () => {
-    getdata(2, () => {
-        getdata(3, () => {git remote add origin https://github.com/KhanzaidGithub/asynchronous.github.io.git
+// This is nestes callback hell functions
+// getdata(1, () => {
+//     getdata(2, () => {
+//         getdata(3, () => {
+//             getdata(4) // This is how we can use nested call back function but using nested function becomes call back hell
+//         })
+//     })
+// });         // This how call back function actually works
 
-            getdata(4)// This is how we can use nested call back function but using nested function becomes call back hell
-        })
+
+// For solving this callback hell functions we have promosises
+
+// Promesis
+// Promosis is for "Eventual" Completion of task, It is an object in Javascript
+// it is solution for callback hell
+// Syntax
+
+// let promis = new Promise((Resolve,reject)={...})
+
+// Promise is a class for creating ne class we pass two function also called handlers => resolve,reject these are two handlers function we can call them callback functions
+
+// let promise = new Promise((resolve,reject)=>{
+//     console.log('I am promise');
+//     // resolve(123); // This is itself a function // Resolve is now fullfild
+//     reject('123')
+// })
+// Primise has three states Resolve,Pending and Reject
+
+let getpromise = () => {
+    return new Promise((resolve, reject) => {
+        console.log('I am getpromise');
+        //  resolve('124'); // We get fullfilled value wiht resolve 
+        reject('order rejected');//We will get this value with not then we have to use catch 
     })
-});         // This how call back function actually works
+}
+
+let promise = getpromise();
+promise.then(() => {
+    console.log('Succesfully Resloved'); // here with then we will get the result of resolve fullfilled we get but not reject
+});
+
+// promise.then((resolve)=>{...})
+// promise.catch((rejected)=>{...})
+
+promise.catch(() => {
+    console.log('Order rejected');
+})
+
